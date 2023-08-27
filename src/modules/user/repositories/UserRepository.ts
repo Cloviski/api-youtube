@@ -59,8 +59,6 @@ class UserRepository {
                 { expiresIn: "1d" }
               );
 
-              console.log(token);
-
               return response
                 .status(200)
                 .json({ token: token, message: "Authentition success" });
@@ -86,12 +84,19 @@ class UserRepository {
             if (error) {
               return response.status(400).send({
                 user: {
-                  name: result[0].name,
-                  email: result[0].email,
-                  id: result[0].user_id,
+                  error: error,
+                  response: null,
                 },
               });
             }
+
+            return response.status(201).send({
+              user: {
+                name: result[0].name,
+                email: result[0].email,
+                id: result[0].user_id,
+              },
+            });
           }
         );
       });

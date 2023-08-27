@@ -3,9 +3,9 @@ import { userRoutes } from "./routes/user.routes";
 import { videosRoutes } from "./routes/videos.routes";
 import { config } from "dotenv";
 
-config(); //AXIOS, keep that in mind. It'll make easier to make requests.
 const app = express();
 
+config(); //AXIOS, keep that in mind. It'll make easier to make requests.
 const cors = require("cors");
 
 app.use(function (req, res, next) {
