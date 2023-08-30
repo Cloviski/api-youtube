@@ -44,12 +44,11 @@ class VideoRepository {
   }
 
   searchVideos(request: Request, response: Response) {
-    //Method to take all users' videos
     const { search } = request.query;
     pool.getConnection((err: any, connection: any) => {
       connection.query(
         "SELECT * FROM videos WHERE title LIKE ? OR description LIKE ?",
-        [`%${search}%`],
+        [`%${search}%`, `%${search}%`],
         (error: any, results: any, fields: any) => {
           connection.release();
           if (error) {
