@@ -6,13 +6,13 @@ const VideosRepository_1 = require("../modules/videos/repositories/VideosReposit
 const login_1 = require("../middleware/login");
 const videosRoutes = (0, express_1.Router)();
 exports.videosRoutes = videosRoutes;
-const videoRepository = new VideosRepository_1.VideoRepository();
+const videosRepository = new VideosRepository_1.VideoRepository();
 videosRoutes.post("/create-video", login_1.login, (request, response) => {
-  videoRepository.create(request, response);
+    videosRepository.create(request, response);
 });
 videosRoutes.get("/get-videos", login_1.login, (request, response) => {
-  videoRepository.getVideos(request, response);
+    videosRepository.getVideos(request, response);
 });
 videosRoutes.get("/search", (request, response) => {
-  videoRepository.searchVideos(request, response);
+    videosRepository.searchVideos(request, response);
 });

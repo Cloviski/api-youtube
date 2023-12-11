@@ -11,7 +11,7 @@ const cors = require("cors");
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); 
   res.header(
-    "Access-Control-Allow-Headres",
+    "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Context-Type, Accept"
   );
   res.header(
@@ -22,11 +22,9 @@ app.use(function (req, res, next) {
 });
 
 app.use(cors());
-
 app.use(express.json());
 app.use("/user", userRoutes);
 app.use("/videos", videosRoutes);
-
 app.listen(4000);
 
 
