@@ -8,11 +8,11 @@ const videosRoutes = (0, express_1.Router)();
 exports.videosRoutes = videosRoutes;
 const videosRepository = new VideosRepository_1.VideoRepository();
 videosRoutes.post("/create-video", login_1.login, (request, response) => {
-    videosRepository.create(request, response);
+  videosRepository.create(request, response);
 });
 videosRoutes.get("/get-videos", login_1.login, (request, response) => {
-    videosRepository.getVideos(request, response);
+  videosRepository.getVideos(request, response);
 });
 videosRoutes.get("/search", (request, response) => {
-    videosRepository.searchVideos(request, response);
+  videosRepository.searchVideos(request, response);
 });

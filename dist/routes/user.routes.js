@@ -8,11 +8,11 @@ const userRoutes = (0, express_1.Router)();
 exports.userRoutes = userRoutes;
 const userRepository = new UserRepository_1.UserRepository();
 userRoutes.post("/sign-up", (request, response) => {
-    userRepository.create(request, response);
+  userRepository.create(request, response);
 });
 userRoutes.post("/sign-in", (request, response) => {
-    userRepository.login(request, response);
+  userRepository.login(request, response);
 });
 userRoutes.get("/get-user", login_1.login, (request, response) => {
-    userRepository.getUser(request, response);
+  userRepository.getUser(request, response);
 });
