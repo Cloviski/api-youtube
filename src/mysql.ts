@@ -10,4 +10,9 @@ const pool = mysql.createPool({
   port: Number(process.env.PORT_DATABASE),
 });
 
+pool.on('connection', () => {
+  console.log('MySQL Connection Pool is ready!');
+});
+
+
 export { pool };
