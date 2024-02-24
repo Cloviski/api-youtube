@@ -1,19 +1,32 @@
 import { pool } from "../../../mysql";
 import { v4 as uuidv4 } from "uuid";
 import { Request, Response } from "express";
+import { MysqlError, PoolConnection } from "mysql";
+
+interface CreateVideoRequest {
+  title: string;
+  description: string;
+  user_id: string;
+  thumbnail: string;
+  publishedAt: Date;
+}
+
+interface GetVideoRequest {
+  user_id: string;
+}
 
 class VideoRepository {
-  create(request: Request, response: Response) {
+  create(request: Request<any, any, CreateVideoRequest>, response: Response) {
     const { title, description, user_id, thumbnail, publishedAt } =
       request.body;
-    pool.getConnection((err: any, connection: any) => {
+    pool.getConnection((_err: MysqlError, connection: PoolConnection) => {
       connection.query(
         "INSERT INTO videos (video_id, user_id, title, description, thumbnail, publishedAt) VALUES (?,?,?,?,?,?)",
         [uuidv4(), user_id, title, description, thumbnail, publishedAt],
-        (error: any, result: any, fields: any) => {
+        (queryError: MysqlError | null, _result: any, _fields: any) => {
           connection.release();
-          if (error) {
-            return response.status(400).json(error);
+          if (queryError) {
+            return response.status(400).json(queryError);
           }
           response.status(200).json({ success: "Video created" });
         }
@@ -21,16 +34,16 @@ class VideoRepository {
     });
   }
 
-  getVideos(request: Request, response: Response) {
-    //Method to take all users' videos
+  getVideos(request: Request<any, any, GetVideoRequest>, response: Response) {
+    //Method to get all users' videos
     const { user_id } = request.query;
-    pool.getConnection((err: any, connection: any) => {
+    pool.getConnection((_err: MysqlError, connection: PoolConnection) => {
       connection.query(
         "SELECT * FROM videos WHERE user_id = ?",
         [user_id],
-        (error: any, results: any, fields: any) => {
+        (queryError: MysqlError | null, results: any, _fields: any) => {
           connection.release();
-          if (error) {
+          if (queryError) {
             return response
               .status(400)
               .json({ error: "Error searching for videos!" });
@@ -45,13 +58,13 @@ class VideoRepository {
 
   searchVideos(request: Request, response: Response) {
     const { search } = request.query;
-    pool.getConnection((err: any, connection: any) => {
+    pool.getConnection((_err: MysqlError, connection: PoolConnection) => {
       connection.query(
         "SELECT * FROM videos WHERE title LIKE ? OR description LIKE ?",
         [`%${search}%`, `%${search}%`],
-        (error: any, results: any, fields: any) => {
+        (queryError: MysqlError | null, results: any, _fields: any) => {
           connection.release();
-          if (error) {
+          if (queryError) {
             return response
               .status(400)
               .json({ error: "Error searching for videos!" });
