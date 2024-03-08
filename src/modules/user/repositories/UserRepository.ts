@@ -5,19 +5,14 @@ import { JwtPayload, sign, verify } from "jsonwebtoken";
 import { Request, Response } from "express";
 import { MysqlError, PoolConnection } from "mysql";
 
-interface CreateUserRequest {
+interface UserRequest {
   name: string;
   email: string;
   password: string;
 }
 
-interface LoginUserRequest {
-  email: string;
-  password: string;
-}
-
 class UserRepository {
-  create(request: Request<any, any, CreateUserRequest>, response: Response) {
+  create(request: Request<any, any, UserRequest>, response: Response) {
     const { name, email, password } = request.body;
     pool.getConnection((_err: MysqlError, connection: PoolConnection) => {
       hash(password, 10, (err, hash) => {
@@ -40,7 +35,7 @@ class UserRepository {
     });
   }
 
-  login(request: Request<any, any, LoginUserRequest>, response: Response) {
+  login(request: Request<any, any, UserRequest>, response: Response) {
     const { email, password } = request.body;
     pool.getConnection((_err: any, connection: any) => {
       connection.query(

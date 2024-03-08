@@ -1,5 +1,6 @@
 import mysql from "mysql";
 import { config } from "dotenv";
+
 config();
 
 const pool = mysql.createPool({
