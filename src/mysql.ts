@@ -12,3 +12,5 @@ const pool = mysql.createPool({
 });
 
 export { pool };
+
+// host: process.env.HOST_DATABASE,
