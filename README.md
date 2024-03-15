@@ -4,7 +4,7 @@ This YouTube NodeJS is the Youtube Replica API, powered by a modern tech stack, 
 
 ### Technologies
 
-Node.js, TypeScript, MySQL, JSON Web Token, Bcrypt, uuid (v4), Express, CORS.
+Node.js, TypeScript, MySQL, Docker, JSON Web Token, Bcrypt, uuid (v4), Express, CORS.
 
 ## Prerequisites
 
